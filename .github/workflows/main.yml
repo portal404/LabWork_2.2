@@ -40,4 +40,4 @@ jobs:
           make
           echo make complete
           ./main/WeaponApplication
-          ./maintest/WeaponsTest
+          ./maintest/ComplexTest.cpp
