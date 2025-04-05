@@ -37,6 +37,9 @@ public:
     bool operator!=(const TComplex<T>& p);
     bool operator==(const TComplex<T>& p);
 
+    void PrintTrig();
+    TComplex Power(double p);
+
     template<class T1>
     friend ostream& operator<<(ostream& o, TComplex<T1>& b);
 
@@ -168,6 +171,36 @@ inline TComplex<T>& TComplex<T>::operator = (const TComplex<T>& p)
   return *this;
 }
 
+
+template <class T>
+void TComplex<T>::PrintTrig()
+{
+  T r = ComplexAbs();
+  if (r == 0)
+  {
+    std::cout << "0";
+    return;
+  }
+  T phi = std::atan2(im, re);
+  std::cout << r << " * (cos(" << phi << ") + i * sin(" << phi << "))";
+}
+
+template <class T>
+TComplex<T> TComplex<T>::Power(double p)
+{
+  if (re == 0 && im == 0) {
+    if (p <= 0) throw std::invalid_argument("Can't raise zero to non positive power");
+    return TComplex(0, 0);
+  }
+
+  T r = ComplexAbs();
+  T phi = atan2(im, re);
+  T newR = pow(r, p);
+  T newPhi = p * phi;
+
+  return TComplex(newR * cos(newPhi), newR * sin(newPhi));
+}
+
 template<class T>
 inline bool TComplex<T>::operator == (const TComplex<T>& p)
 {
@@ -196,4 +229,3 @@ inline istream& operator>>(istream& i, TComplex<T1>& b)
   i >> b.im;
   return i;
 }
-
