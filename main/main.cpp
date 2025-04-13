@@ -5,12 +5,7 @@ using namespace std;
 
 int main()
 {
-  TComplex a (1,4);
-  TComplex b (2,7);
-  a+=b;
-  a*=b;
-  cin >> b;
-  a/=b;
-  cout << a;
+  TComplex a (1,33);
+  a.PrintTrig();
   return 0;
 }

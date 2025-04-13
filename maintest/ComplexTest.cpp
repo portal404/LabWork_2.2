@@ -122,3 +122,50 @@ TComplex<double> res = d / one;
 EXPECT_DOUBLE_EQ(res.GetRe(), 5.0);
 EXPECT_DOUBLE_EQ(res.GetIm(), -3.0);
 }
+
+
+TEST(TComplexTest, AbsMethod) {
+  TComplex<double> c(3.0, 4.0);
+  EXPECT_DOUBLE_EQ(c.ComplexAbs(), 5.0);
+}
+
+TEST(TComplexTest, FractionalPowerBasic) {
+  TComplex<double> c(4.0, 0.0);
+  TComplex<double> res = c.Power(0.5);
+  EXPECT_NEAR(res.GetRe(), 2.0, 1e-6);
+  EXPECT_NEAR(res.GetIm(), 0.0, 1e-6);
+}
+
+TEST(TComplexTest, NegativeBaseFractionalPower) {
+  TComplex<double> c(-1, 0);
+  TComplex<double> res = c.Power(0.5);
+  EXPECT_NEAR(res.GetRe(), 0.0, 1e-6);
+  EXPECT_NEAR(res.GetIm(), 1.0, 1e-6);
+}
+
+TEST(TComplexTest, ComplexNumberFractionalPower) {
+  TComplex<double> c(1, 1);
+  TComplex<double> res = c.Power(0.5);
+  EXPECT_NEAR(res.GetRe(), 1.098684, 1e-6);
+  EXPECT_NEAR(res.GetIm(), 0.455090, 1e-6);
+}
+
+TEST(TComplexTest, NegativeExponent) {
+  TComplex<double> c(2, 0);
+  TComplex<double> res = c.Power(-1.5);
+  EXPECT_NEAR(res.GetRe(), 0.353553, 1e-6);
+  EXPECT_NEAR(res.GetIm(), 0.0, 1e-6);
+}
+
+TEST(TComplexTest, ZeroToFractionalPower) {
+  TComplex<double> c(0, 0);
+  TComplex<double> res = c.Power(3.5);
+  EXPECT_DOUBLE_EQ(res.GetRe(), 0.0);
+  EXPECT_DOUBLE_EQ(res.GetIm(), 0.0);
+}
+
+TEST(TComplexTest, InvalidZeroPower) {
+  TComplex<double> c(0, 0);
+  EXPECT_THROW(c.Power(-2.5), std::invalid_argument);
+  EXPECT_THROW(c.Power(0.0), std::invalid_argument);
+}
